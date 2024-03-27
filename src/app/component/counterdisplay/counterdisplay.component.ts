@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { CounterModel } from '../../shared/store/counter.model';
 import { CommonModule } from '@angular/common';
+import { getcounter } from '../../shared/store/counter.selector';
 
 @Component({
   selector: 'app-counterdisplay',
@@ -25,14 +26,14 @@ export class CounterdisplayComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.countersubscribe = this.store
-    //   .select('counter')
-    //   .subscribe((data: any) => {
-    //     this.counterDisplay = data.counter;
-    //     this.channelname = data.channelname;
-    //   });
+    this.countersubscribe = this.store
+      .select(getcounter)
+      .subscribe(data => {
+        this.counterDisplay = data;
+        console.log("Counter Display")
+      });
 
-      this.counter$ = this.store.select('counter');
+    //this.counter$ = this.store.select('counter');
   }
 
   ngOnDestroy(): void {
