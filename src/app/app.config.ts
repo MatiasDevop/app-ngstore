@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './shared/store/counter.reducer';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { blogReducer } from './shared/store/Blog/blog.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     importProvidersFrom(StoreModule.forRoot({
         counter: counterReducer,
+        blog: blogReducer
         //adminLogin: adminLoginReducer
     })), provideAnimationsAsync(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
