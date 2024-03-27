@@ -1,0 +1,5 @@
+<!-- <h1>{{channelname}}</h1> -->
+<h1>{{(counter$ | async )?.channelname}}</h1>
+<!-- <h2>Counter is: <b>{{counterDisplay}}</b></h2> i'm gonna use Observable instead-->
+<h2>Counter is: <b>{{(counter$ | async )?.counter}}</b></h2>
+
