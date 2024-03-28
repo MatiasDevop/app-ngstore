@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AppStateModel } from '../../shared/store/Global/AppState.model';
 
 @Component({
   selector: 'app-blog',
@@ -19,11 +20,8 @@ import { CommonModule } from '@angular/common';
 })
 export class BlogComponent implements OnInit{
   
-  /**
-   *
-   */
   blogList!: BlogModel[];
-  constructor(private store: Store<{blog: BlogModel[]}>) {
+  constructor(private store: Store<AppStateModel>) {
     
   }
   ngOnInit(): void {

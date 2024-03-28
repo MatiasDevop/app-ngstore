@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { CounterModel } from '../../shared/store/counter.model';
 import { Subscription } from 'rxjs';
 import { getchannelname } from '../../shared/store/counter.selector';
+import { AppStateModel } from '../../shared/store/Global/AppState.model';
 
 @Component({
   selector: 'app-customecounter',
@@ -25,7 +26,7 @@ export class CustomecounterComponent implements OnInit{
   counterinput!: number;
   actiontype: string = "add";
   countersubcribe !: Subscription;
-  constructor(private store: Store<{ counter: CounterModel}>) {}
+  constructor(private store: Store<AppStateModel>) {}
   
   ngOnInit(): void {
     this.countersubcribe = this.store.select(getchannelname).subscribe(data => {
