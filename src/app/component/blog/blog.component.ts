@@ -10,24 +10,37 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppStateModel } from '../../shared/store/Global/AppState.model';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { AddblogComponent } from '../addblog/addblog.component';
+
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, CommonModule],
+  imports: [MatCardModule, MatButtonModule, CommonModule, MatDialogModule],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.css'
 })
 export class BlogComponent implements OnInit{
   
   blogList!: BlogModel[];
-  constructor(private store: Store<AppStateModel>) {
+  constructor(private store: Store<AppStateModel>, private dialog: MatDialog) {
     
   }
   ngOnInit(): void {
     this.store.select(getblog).subscribe(item =>{
       this.blogList = item;
       console.log(this.blogList);
+    })
+  }
+
+  AddBlog(){
+    this.OpenPopup();
+  }
+
+  OpenPopup(){
+    this.dialog.open(AddblogComponent, {
+      width: '40%'
     })
   }
 
