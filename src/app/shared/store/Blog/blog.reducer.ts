@@ -1,7 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BlogState } from "./blog.state";
-import { addblog, loadblog } from "./blog.actions";
-import { state } from "@angular/animations";
+import { addblog, loadblog, updateblog } from "./blog.actions";
 
 const _blogReducer = createReducer(
     BlogState,
@@ -16,6 +15,16 @@ const _blogReducer = createReducer(
       return{
         ...state,
         blogList: [...state.blogList, _blog]
+      }
+    }),
+    on(updateblog, (state, action) => {
+      const _blog = {...action.bloginput};
+      const updateblog = state.blogList.map(blog => {
+        return _blog.id === blog.id? _blog : blog;
+      })
+      return{
+        ...state,
+        blogList: updateblog
       }
     })
   

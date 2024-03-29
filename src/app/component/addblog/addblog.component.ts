@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -8,7 +8,8 @@ import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angula
 import { BlogModel } from '../../shared/store/Blog/blog.model';
 import { Store } from '@ngrx/store';
 import { AppStateModel } from '../../shared/store/Global/AppState.model';
-import { addblog } from '../../shared/store/Blog/blog.actions';
+import { addblog, updateblog } from '../../shared/store/Blog/blog.actions';
+import { getblogbyid } from '../../shared/store/Blog/blog.selectors';
 
 @Component({
   selector: 'app-addblog',
@@ -17,12 +18,27 @@ import { addblog } from '../../shared/store/Blog/blog.actions';
   templateUrl: './addblog.component.html',
   styleUrl: './addblog.component.css'
 })
-export class AddblogComponent {
+export class AddblogComponent implements OnInit {
+
+  pageTitle='';
+  editBlogid=0;
+  editdata!: BlogModel;
 
   constructor(private dialogref: MatDialogRef<AddblogComponent>,
     private builder: FormBuilder,
-    private store: Store<AppStateModel>){
+    private store: Store<AppStateModel>,
+    @Inject(MAT_DIALOG_DATA) public data: any){
 
+  }
+  ngOnInit(): void {
+    this.pageTitle = this.data.title;
+    if (this.data.isEdit) {
+      this.editBlogid = this.data.id;
+      this.store.select(getblogbyid(this.editBlogid)).subscribe(_data =>{
+        this.editdata = _data;
+        this.editForm(this.editdata);
+      })
+    }
   }
   Closepopup(){
     this.dialogref.close();
@@ -34,6 +50,14 @@ export class AddblogComponent {
     description: this.builder.control('', Validators.required)
   })
 
+  editForm(data: BlogModel){
+    this.blogForm.setValue({
+      id: data.id,
+      title: data.title,
+      description: data.description
+    })
+  }
+
   SaveBlogs(){
     if (this.blogForm.valid) {
       const _bloginput: BlogModel = {
@@ -41,7 +65,12 @@ export class AddblogComponent {
         title: this.blogForm.value.title as string,
         description: this.blogForm.value.description as string
       }
-      this.store.dispatch(addblog({bloginput: _bloginput}));
+      if (this.data.isEdit) {
+        _bloginput.id = this.blogForm.value.id as number;
+        this.store.dispatch(updateblog({bloginput: _bloginput}));
+      }else{
+        this.store.dispatch(addblog({bloginput: _bloginput}));
+      }
       this.Closepopup();
     }
   }
