@@ -7,13 +7,21 @@ import { StoreModule } from '@ngrx/store';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AppState } from './shared/store/Global/App.state';
+import { EffectsModule } from '@ngrx/effects';
+import { BlogEffects } from './shared/store/Blog/blog.effects';
+import { HttpClientModule } from '@angular/common/http';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
     importProvidersFrom(StoreModule.forRoot(
-      AppState)), provideAnimationsAsync(),
+      AppState),
+      EffectsModule.forRoot([BlogEffects]),
+      HttpClientModule), 
+      provideAnimationsAsync(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-]
+],
+
 };

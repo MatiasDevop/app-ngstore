@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AppStateModel } from '../../shared/store/Global/AppState.model';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { AddblogComponent } from '../addblog/addblog.component';
-import { deleteblog } from '../../shared/store/Blog/blog.actions';
+import { deleteblog, loadblog } from '../../shared/store/Blog/blog.actions';
 import {MatIconModule} from '@angular/material/icon';
 
 
@@ -27,6 +27,9 @@ export class BlogComponent implements OnInit{
     
   }
   ngOnInit(): void {
+    //use effects
+    this.store.dispatch(loadblog());
+    //
     this.store.select(getblog).subscribe(item =>{
       this.blogList = item;
       console.log(this.blogList);
@@ -52,7 +55,6 @@ export class BlogComponent implements OnInit{
     this.OpenPopup(id, 'Edit blog', true)
   }
 
-  blogData!: BlogModel;
   RemoveBlog(id: any){
     
     if (confirm('Are you sure to delete item')) {

@@ -1,7 +1,11 @@
 import { createAction, props } from "@ngrx/store";
 import { BlogModel } from "./blog.model";
 
-export const loadblog=createAction('loadblog');
+export const LOAD_BLOG_SUCCESS="[Blog page] load blog success";
+export const LOAD_BLOG="[Blog page] load blog";
+
+export const loadblog=createAction(LOAD_BLOG);
+export const loadblogsuccess=createAction(LOAD_BLOG_SUCCESS, props<{bloglist: BlogModel[]}>());
 
 export const addblog=createAction('[blog] addblog', props<{bloginput: BlogModel}>());
 
