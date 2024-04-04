@@ -1,7 +1,7 @@
-import { BlogModel } from './../../shared/store/Blog/blog.model';
+import { BlogModel, Blogs } from './../../shared/store/Blog/blog.model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getblog, getblogbyid } from '../../shared/store/Blog/blog.selectors';
+import { getblog, getblogbyid, getbloginfo } from '../../shared/store/Blog/blog.selectors';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
@@ -23,6 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 export class BlogComponent implements OnInit{
   
   blogList!: BlogModel[];
+  bloginfo!: Blogs;
   constructor(private store: Store<AppStateModel>, private dialog: MatDialog) {
     
   }
@@ -30,9 +31,9 @@ export class BlogComponent implements OnInit{
     //use effects
     this.store.dispatch(loadblog());
     //
-    this.store.select(getblog).subscribe(item =>{
-      this.blogList = item;
-      console.log(this.blogList);
+    this.store.select(getbloginfo).subscribe(item =>{
+      // this.blogList = item;
+      this.bloginfo = item;
     })
   }
 

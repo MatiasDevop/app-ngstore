@@ -5,5 +5,6 @@ export interface BlogModel{
 }
 
 export interface Blogs{
-    blogList:BlogModel[]
+    blogList:BlogModel[];
+    errorMessage:string;
 }

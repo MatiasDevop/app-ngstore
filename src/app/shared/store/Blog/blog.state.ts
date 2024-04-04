@@ -2,7 +2,7 @@ import { BlogModel, Blogs } from './blog.model';
 
 export const BlogState: Blogs = {
   blogList: [
-    { id: 1, title: 'Angular', description: 'Angular is the best FM' }
+    // { id: 1, title: 'Angular', description: 'Angular is the best FM' }
     // { id: 2, title: 'React', description: 'React is the best FM' },
     // {
     //   id: 3,
@@ -10,4 +10,5 @@ export const BlogState: Blogs = {
     //   description: '.Net is opensource powered by Microsoft',
     // },
   ],
+  errorMessage:""
 };

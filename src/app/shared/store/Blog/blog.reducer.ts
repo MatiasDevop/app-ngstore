@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BlogState } from "./blog.state";
-import { addblog, deleteblog, loadblog, loadblogsuccess, updateblog } from "./blog.actions";
+import { addblog, deleteblog, loadblog, loadblogfail, loadblogsuccess, updateblog } from "./blog.actions";
 import { BlogModel } from "./blog.model";
 
 const _blogReducer = createReducer(
@@ -13,7 +13,16 @@ const _blogReducer = createReducer(
     on(loadblogsuccess, (state, action) => {
       return{
         ...state,
-        blogList: [...action.bloglist]
+        blogList: [...action.bloglist],
+        errorMessage:''
+      }
+    }),
+    on(loadblogfail, (state, action) => {
+      console.log('reducer--', action.ErroText)
+      return{
+        ...state,
+        blogList:[],
+        errorMessage: action.ErroText.message
       }
     }),
     on(addblog, (state, action) => {
