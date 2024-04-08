@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { BlogState } from "./blog.state";
-import { addblog, deleteblog, loadblog, loadblogfail, loadblogsuccess, updateblog } from "./blog.actions";
+import { addblog, addblogsuccess, deleteblog, loadblog, loadblogfail, loadblogsuccess, updateblog } from "./blog.actions";
 import { BlogModel } from "./blog.model";
 
 const _blogReducer = createReducer(
@@ -22,12 +22,20 @@ const _blogReducer = createReducer(
       return{
         ...state,
         blogList:[],
-        errorMessage: action.ErroText.message
+        errorMessage: action.ErroText?.message
       }
     }),
-    on(addblog, (state, action) => {
+    // on(addblog, (state, action) => { //no needed cuz addblogsuccess will do it with server
+    //   const _blog = {...action.bloginput};
+    //   _blog.id = state.blogList.length + 1;
+    //   return{
+    //     ...state,
+    //     blogList: [...state.blogList, _blog]
+    //   }
+    // }),
+    on(addblogsuccess, (state, action) => {
       const _blog = {...action.bloginput};
-      _blog.id = state.blogList.length + 1;
+      //_blog.id = state.blogList.length + 1;
       return{
         ...state,
         blogList: [...state.blogList, _blog]

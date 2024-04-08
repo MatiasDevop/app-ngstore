@@ -3,15 +3,17 @@ import { BlogModel } from "./blog.model";
 
 export const LOAD_BLOG_SUCCESS="[Blog page] load blog success";
 export const LOAD_BLOG="[Blog page] load blog";
-
 export const LOAD_BLOG_FAIL="[Blog page] load blog";
+export const ADD_BLOG_SUCCESS="[Blog page] add blog success";
+export const ADD_BLOG="[Blog page] add blog";
 
 export const loadblog=createAction(LOAD_BLOG);
 export const loadblogsuccess=createAction(LOAD_BLOG_SUCCESS, props<{bloglist: BlogModel[]}>());
 
 export const loadblogfail=createAction(LOAD_BLOG_FAIL, props<{ErroText: any}>());
 
-export const addblog=createAction('[blog] addblog', props<{bloginput: BlogModel}>());
+export const addblog=createAction(ADD_BLOG, props<{bloginput: BlogModel}>());
+export const addblogsuccess=createAction(ADD_BLOG_SUCCESS, props<{bloginput: BlogModel}>());
 
 export const updateblog=createAction('[blog] updateblog', props<{bloginput: BlogModel}>());
 
