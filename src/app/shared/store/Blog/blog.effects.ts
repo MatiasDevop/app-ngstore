@@ -31,6 +31,7 @@ export class BlogEffects{
         this.actions$.pipe(
             ofType(addblog),
             exhaustMap(action => {
+                debugger
                 return this.service.CreateBlog(action.bloginput).pipe(
                     map((data)=>{
                         return addblogsuccess({bloginput: data as BlogModel})

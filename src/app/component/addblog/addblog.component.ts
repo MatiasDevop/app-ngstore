@@ -65,6 +65,7 @@ export class AddblogComponent implements OnInit {
         title: this.blogForm.value.title as string,
         description: this.blogForm.value.description as string
       }
+      debugger
       if (this.data.isEdit) {
         _bloginput.id = this.blogForm.value.id as number;
         this.store.dispatch(updateblog({bloginput: _bloginput}));

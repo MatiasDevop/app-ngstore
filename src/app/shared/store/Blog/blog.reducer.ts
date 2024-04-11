@@ -33,9 +33,10 @@ const _blogReducer = createReducer(
     //     blogList: [...state.blogList, _blog]
     //   }
     // }),
-    on(addblogsuccess, (state, action) => {
-      const _blog = {...action.bloginput};
-      //_blog.id = state.blogList.length + 1;
+    on(addblogsuccess, (state, action) => { //if it's success we are going to enter here
+      const _blog = {...action.bloginput}; 
+      _blog.id = state.blogList.length + 1;
+     debugger
       return{
         ...state,
         blogList: [...state.blogList, _blog]
