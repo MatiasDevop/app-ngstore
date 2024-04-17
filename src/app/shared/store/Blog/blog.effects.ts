@@ -13,7 +13,7 @@ export class BlogEffects{
 
     }
 
-    _blog=createEffect(() => 
+    _blog = createEffect(() => 
         this.actions$.pipe(
             ofType(LOAD_BLOG),
             exhaustMap((action) => {
@@ -27,13 +27,13 @@ export class BlogEffects{
         )
     );
 
-    _addBlog=createEffect(() => 
+    _addBlog = createEffect(() => 
         this.actions$.pipe(
             ofType(addblog),
             exhaustMap(action => {
                 debugger
                 return this.service.CreateBlog(action.bloginput).pipe(
-                    map((data)=>{
+                    map((data) => {
                         return addblogsuccess({bloginput: data as BlogModel})
                     }),
                     catchError((_error) => of(loadblogfail({ErroText: _error})))

@@ -11,8 +11,6 @@ import { AddblogComponent } from '../addblog/addblog.component';
 import { deleteblog, loadblog } from '../../shared/store/Blog/blog.actions';
 import {MatIconModule} from '@angular/material/icon';
 
-
-
 @Component({
   selector: 'app-blog',
   standalone: true,
