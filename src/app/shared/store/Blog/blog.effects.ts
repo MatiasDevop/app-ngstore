@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { MasterService } from "../../master.service";
 import { LOAD_BLOG, addblog, addblogsuccess, loadblogfail, loadblogsuccess } from "./blog.actions";
-import { catchError, exhaustMap, map, of } from "rxjs";
+import { catchError, exhaustMap, map, of, switchMap } from "rxjs";
 import { BlogModel } from "./blog.model";
 
 @Injectable()
@@ -30,15 +30,14 @@ export class BlogEffects{
     _addBlog = createEffect(() => 
         this.actions$.pipe(
             ofType(addblog),
-            exhaustMap(action => {
-                debugger
-                return this.service.CreateBlog(action.bloginput).pipe(
-                    map((data) => {
-                        return addblogsuccess({bloginput: data as BlogModel})
-                    }),
+            switchMap(action => 
+                this.service.CreateBlog(action.bloginput).pipe(
+                    switchMap((data) => of(
+                        addblogsuccess({bloginput: data as BlogModel})
+                    )),
                     catchError((_error) => of(loadblogfail({ErroText: _error})))
                 )
-            })
+            )
         )
     );
 }

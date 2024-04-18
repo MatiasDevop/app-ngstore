@@ -70,10 +70,20 @@ export class AddblogComponent implements OnInit {
         _bloginput.id = this.blogForm.value.id as number;
         this.store.dispatch(updateblog({bloginput: _bloginput}));
       }else{
-        this.store.dispatch(addblog({bloginput: _bloginput}));
+        //this.store.dispatch(addblog({bloginput: _bloginput}));
+        this.generateAndDispatchAddBlogAction(_bloginput);
       }
       this.Closepopup();
     }
+  }
+
+  private generateAndDispatchAddBlogAction(blogInput: BlogModel): void {
+    this.store.select(state => state.blog).subscribe((blogs: any) => {
+      const maxId = blogs.blogList.reduce((max: any, blog: any) => (blog.id > max ? blog.id : max), 0);
+      const newId = maxId + 1;
+      const newBlogInput = { ...blogInput, id: newId };
+      this.store.dispatch(addblog({ bloginput: newBlogInput }));
+    }).unsubscribe();
   }
 
 }
