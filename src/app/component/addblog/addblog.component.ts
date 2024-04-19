@@ -79,10 +79,10 @@ export class AddblogComponent implements OnInit {
 
   private generateAndDispatchAddBlogAction(blogInput: BlogModel): void {
     this.store.select(state => state.blog).subscribe((blogs: any) => {
-      const maxId = blogs.blogList.reduce((max: any, blog: any) => (blog.id > max ? blog.id : max), 0);
+      const maxId = blogs.blogList.reduce((max: any, blog: any) => (blog.id > max ? parseInt(blog.id, 10) : max), 0);
       const newId = maxId + 1;
       const newBlogInput = { ...blogInput, id: newId };
-      this.store.dispatch(addblog({ bloginput: newBlogInput }));
+      this.store.dispatch(addblog({ bloginput: newBlogInput }));//this triggers the EFFECTS _saveblog
     }).unsubscribe();
   }
 

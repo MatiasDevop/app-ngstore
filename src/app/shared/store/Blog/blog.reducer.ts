@@ -35,7 +35,7 @@ const _blogReducer = createReducer(
     // }),
     on(addblogsuccess, (state, action) => { //if it's success we are going to enter here
       const _blog = {...action.bloginput}; 
-      _blog.id = state.blogList.length + 1;
+     // _blog.id = state.blogList.length + 1;
      debugger
       return{
         ...state,
@@ -53,6 +53,7 @@ const _blogReducer = createReducer(
       }
     }),
     on(deleteblog, (state, action) => {
+      debugger
       const updateblog = state.blogList.filter((data: BlogModel) =>{
         return action.id !== data.id;
       });

@@ -1,3 +1,4 @@
+import { updateblog } from './store/Blog/blog.actions';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BlogModel } from './store/Blog/blog.model';
@@ -31,5 +32,10 @@ export class MasterService {
     return this.http.get<BlogModel[]>("http://localhost:3000/Blogs").pipe(
       map(blogs => blogs[blogs.length - 1]) // Extract the last blog from the array
     );
+  }
+
+  UpdateBlog(bloginput: BlogModel): Observable<any> {
+    debugger
+    return this.http.put("http://localhost:3000/Blogs/"+ bloginput.id, bloginput);
   }
 }
