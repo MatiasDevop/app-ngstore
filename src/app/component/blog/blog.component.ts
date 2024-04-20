@@ -57,7 +57,7 @@ export class BlogComponent implements OnInit{
   RemoveBlog(id: any){
     
     if (confirm('Are you sure to delete item')) {
-      this.store.dispatch(deleteblog({id: id}))
+      this.store.dispatch(deleteblog({id: id}))// from this goes to Effect side
     }
   }
 

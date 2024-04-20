@@ -38,4 +38,9 @@ export class MasterService {
     debugger
     return this.http.put("http://localhost:3000/Blogs/"+ bloginput.id, bloginput);
   }
+
+  DeleteBlog(blogId: number): Observable<any> {
+    debugger
+    return this.http.delete("http://localhost:3000/Blogs/"+ blogId);
+  }
 }
